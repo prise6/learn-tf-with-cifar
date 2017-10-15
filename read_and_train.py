@@ -117,7 +117,7 @@ with tf.Session() as sess:
 		input, label, id = sess.run(next_batch)
 		# print(label)
 		# print(id)
-		sess.run(train_step, feed_dict = {x: input, y_: label, keep_prob: 0.5})
+		sess.run(train_step, feed_dict = {x: input, y_: label, keep_prob: 0.5)}
 
 		# print(sess.run([tf.reduce_mean(tf.cast(correct_prediction, tf.float32))], feed_dict = {x: input, y_: label, keep_prob: 0.5}))
 
