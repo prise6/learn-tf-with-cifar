@@ -69,12 +69,8 @@ training_init_op = iterator.make_initializer(training_dataset)
 testing_init_op = iterator.make_initializer(testing_dataset)
 
 
-
-
-
 x = tf.placeholder(tf.float32, [None, 1024*3], name = "x")
 x_image = tf.reshape(x, [-1, 32, 32, 3])
-# tf.summary.image('input', x_image, 5)
 
 W_conv1 = tf.Variable(tf.truncated_normal([5, 5, 3, 10], stddev = 0.1))
 b_conv1 = tf.Variable(tf.constant(0.1, shape = [10]))
@@ -115,19 +111,11 @@ with tf.Session() as sess:
 	sess.run(training_init_op)
 	for i in range(1000):
 		input, label, id = sess.run(next_batch)
-		# print(label)
-		# print(id)
 		sess.run(train_step, feed_dict = {x: input, y_: label, keep_prob: 0.5)}
-
-		# print(sess.run([tf.reduce_mean(tf.cast(correct_prediction, tf.float32))], feed_dict = {x: input, y_: label, keep_prob: 0.5}))
 
 		if (i % 10 == 0) :
 			train_accuracy = accuracy.eval(feed_dict = {x: input, y_: label, keep_prob: 1})
-			# print(type(train_accuracy))
 			print("Step %d, training accuracy %g" % (i, train_accuracy))
-
-		# img = Image.fromarray(input, 'RGB')
-		# img.save('test.png')
 
 	sess.run(testing_init_op)
 	for i in range(1):

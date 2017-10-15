@@ -53,12 +53,9 @@ with tf.Session() as sess:
 	coord = tf.train.Coordinator()
 	threads = tf.train.start_queue_runners(coord=coord)
 
-	# print(tf.shape(my_img[0].eval(session = sess)))
 	for i in range(len(img_to_read)):
 		label_s, image_s = sess.run([label, image])
 		print(i)
-		# print(label_s)
-		# print(image_s)
 
 		idx = int(basename(label_s).split(b'.')[0])
 		label_s = labels[labels['id'] == idx].id_label
@@ -69,8 +66,6 @@ with tf.Session() as sess:
 			'label' : _int64_feature(int(label_s)),
 			'input' : _bytes_feature(image_s.tostring())
 		}))
-
-		# print(example)
 
 		files_out_writers[int(file)-1].write(example.SerializeToString())
 
