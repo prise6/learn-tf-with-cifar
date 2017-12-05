@@ -55,8 +55,6 @@ with tf.Session() as sess:
 
 	for i in range(len(img_to_read)):
 		label_s, image_s = sess.run([label, image])
-		print(i)
-
 		idx = int(basename(label_s).split(b'.')[0])
 		label_s = labels[labels['id'] == idx].id_label
 		file = labels[labels['id'] == idx].file
